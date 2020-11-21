@@ -1,15 +1,17 @@
 package FinalProject;
 import java.util.Observable;
+import java.util.ArrayList;
+import java.io.FileWriter;
 
 public class Roster extends Observable
 {
-  // private <DataStructure> rosterList;
+  private ArrayList<ArrayList<Integer>> rosterList;
   private int rosterSize;
   
   // constructor class
   public Roster()
   {
-    rosterList = null;
+    rosterList = new ArrayList<ArrayList<Integer>>(0);
     rosterSize = 0;
   }
 
@@ -23,9 +25,20 @@ public class Roster extends Observable
     Divine's code
   }
 
+  // I'll add comments later; creats file and writes each element w/ comma separating them
   public void save()
   {
-    Sarah's code
+      File file = new File("saveRoster.cvs");   
+      file.createNewFile();
+      FileWriter writer = new FileWriter(file);
+      for(int i = 0; i < rosterList.size(); i++)
+      {
+        for(int j = 0; j < rosterList.get(i).size(); j++)
+        {
+          writer.write(rosterList.get(i).get(j)+",");
+        }
+      }
+      writer.close();
   }
 
   public void plot()
