@@ -5,10 +5,8 @@ package FinalProject;
 public class World extends JFrame implements ActionListener
 {
   Roster roster = new Roster();
-  JButton addRoster;
-  JButton addAttendance;
-  JButton saveRoster;
-  JButton plotRoster;
+  JButton addRoster, addAttendance, saveRoster, plotRoster;
+  
   
   public World()
   {
