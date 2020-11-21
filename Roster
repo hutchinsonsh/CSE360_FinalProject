@@ -1,0 +1,37 @@
+package FinalProject;
+import java.util.Observable;
+
+public class Roster extends Observable
+{
+  // private <DataStructure> rosterList;
+  private int rosterSize;
+  
+  // constructor class
+  public Roster()
+  {
+    rosterList = null;
+    rosterSize = 0;
+  }
+
+  public void load()
+  {
+    // Omar's code
+  }
+
+  public void addAttendance()
+  {
+    Divine's code
+  }
+
+  public void save()
+  {
+    Sarah's code
+  }
+
+  public void plot()
+  {
+    Riley's code
+  }
+
+
+}
