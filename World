@@ -1,0 +1,51 @@
+// MAIN
+
+package FinalProject;
+
+public class World extends JFrame implements ActionListener
+{
+  Roster roster = new Roster();
+  JButton addRoster;
+  JButton addAttendance;
+  JButton saveRoster;
+  JButton plotRoster;
+  
+  public World()
+  {
+  
+    addRoster = new JButton("Load a Roster");
+    addRoster.setFocusPainted(false);
+    addRoster.addActionListener(this);
+    
+    addAttendance = new JButton("Add Attendance");
+    addAttendance.setFocusPainted(false);
+    addAttendance.addActionListener(this);
+    
+    saveRoster = new JButton("Save");
+    saveRoster.setFocusPainted(false);
+    saveRoster.addActionListener(this);
+    
+    plotRoster = new JButton("Plot Data");
+    plotRoster.setFocusPainted(false);
+    plotRoster.addActionListener(this);
+    
+  }
+  
+  public static void main(String[] args) 
+  {
+    World world = new World();
+  }
+  
+  // watches to see if button is pressed; if so-> calls resulting method in roster
+  public void actionPerformed(ActionEvent e)
+  {
+    if(e.getSource() == addRoster)
+      roster.load();
+    if(e.getSource() == addAttendance)
+      roster.addAttendance();
+    if(e.getSource() == saveRoster)
+      roster.save();
+    if(e.getSource() == plotRoster)
+      roster.plot();
+  }
+}
