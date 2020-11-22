@@ -2,31 +2,57 @@
 
 package FinalProject;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import javax.swing.*;
+
 public class World extends JFrame implements ActionListener
 {
   Roster roster = new Roster();
-  JButton addRoster, addAttendance, saveRoster, plotRoster;
-  
+//JMenuItems
+  JMenuItem load, add, save, plot;
+  JPanel panel;
   
   public World()
   {
   
-    addRoster = new JButton("Load a Roster");
-    addRoster.setFocusPainted(false);
-    addRoster.addActionListener(this);
-    
-    addAttendance = new JButton("Add Attendance");
-    addAttendance.setFocusPainted(false);
-    addAttendance.addActionListener(this);
-    
-    saveRoster = new JButton("Save");
-    saveRoster.setFocusPainted(false);
-    saveRoster.addActionListener(this);
-    
-    plotRoster = new JButton("Plot Data");
-    plotRoster.setFocusPainted(false);
-    plotRoster.addActionListener(this);
-    
+	  JFrame frame = new JFrame("Menu");
+	  
+	  frame.setSize(700,500);
+	  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	  
+	  panel = new JPanel();
+	  
+	  frame.add(panel);
+	  frame.setVisible(true);
+	  
+	  JMenuBar menu = new JMenuBar();
+	  frame.setJMenuBar(menu);
+	    
+	  JMenu file = new JMenu("File");
+	  menu.add(file);
+	    
+	  JMenu about = new JMenu("About");
+	  menu.add(about);
+	    
+	  load = new JMenuItem("Load a Roster");
+	  load.addActionListener(this);
+	    
+	  add = new JMenuItem("Add Attendance");
+	  add.addActionListener(this);
+	  
+	  save = new JMenuItem("Save");
+	  save.addActionListener(this);
+	  
+	  plot = new JMenuItem("Plot Data");
+	  plot.addActionListener(this);
+	  
+	  file.add(load);
+	  file.add(add);
+	  file.add(save);
+	  file.add(plot);
   }
   
   public static void main(String[] args) 
@@ -37,13 +63,17 @@ public class World extends JFrame implements ActionListener
   // watches to see if button is pressed; if so-> calls resulting method in roster
   public void actionPerformed(ActionEvent e)
   {
-    if(e.getSource() == addRoster)
-      roster.load();
-    if(e.getSource() == addAttendance)
-      roster.addAttendance();
-    if(e.getSource() == saveRoster)
-      roster.save();
-    if(e.getSource() == plotRoster)
-      roster.plot();
+    if(e.getSource() == load)
+    	roster.load();
+    if(e.getSource() == add)
+    	roster.addAttendance();
+    if(e.getSource() == save)
+		try {
+			roster.save();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+    if(e.getSource() == plot)
+    	roster.plot();
   }
 }
