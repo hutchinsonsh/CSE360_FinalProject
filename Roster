@@ -15,9 +15,21 @@ public class Roster extends Observable
     rosterSize = 0;
   }
 
-  public void load()
+  public void load(String cvs) throws IOException
   {
-    // Omar's code
+        Scanner input = new Scanner(new File(cvs));
+        String[] tempArr;
+	        String tempStr;
+	        
+
+	        while (input.hasNextLine())
+	        {
+	        	ArrayList<String> row = new ArrayList<>();
+	            tempStr = input.nextLine(); 
+	            tempArr = tempStr.split(","); 
+	            Collections.addAll(row, tempArr);
+	            rosterList.add(row);
+	        }
   }
 
   public void addAttendance()
