@@ -3,6 +3,7 @@
 package FinalProject;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -14,6 +15,7 @@ public class World extends JFrame implements ActionListener
 //JMenuItems
   JMenuItem load, add, save, plot;
   JPanel panel;
+  JTable table;
   
   public World()
   {
@@ -23,7 +25,24 @@ public class World extends JFrame implements ActionListener
 	  frame.setSize(700,500);
 	  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	  
+	  // Table arrays
+	  
+	  String [] headers = {"ID","First Name","Last Name","Program","Level","ASURITE"};
+	  
+	  Object [][] input = {
+			  {"121","Javier","Gonzalez","Comp Sci","Graduate","Jgonz"},
+	  };
+	  
+	  table = new JTable(input,headers);
+	  table.setPreferredScrollableViewportSize(new Dimension(400,50));
+	  table.setFillsViewportHeight(true);
+	  
+	  // Adding Scroll
+	  JScrollPane scroll = new JScrollPane(table);
+	  
 	  panel = new JPanel();
+	  panel.add(table);
+	  panel.add(scroll);
 	  
 	  frame.add(panel);
 	  frame.setVisible(true);
