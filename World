@@ -24,6 +24,8 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener
     //JMenuItems
     JMenuItem load, add, save, plot;
     JPanel panel;
+    JDialog dial;
+    JLabel label1;
   
     JButton btn;
     JFrame frame;
@@ -63,6 +65,9 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener
 	    
 	  JMenu about = new JMenu("About");
 	  menu.add(about);
+	  
+	  team = new JMenuItem("Team Info");
+	  team.addActionListener(this);
 	    
 	  load = new JMenuItem("Load a Roster");
 	  load.addActionListener(this);
@@ -88,9 +93,17 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener
 	  file.add(add);
 	  file.add(save);
 	  file.add(plot);
+	  about.add(team);
+
+	  dial = new JDialog(frame,"Team Info");
+	  dial.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	  dial.setSize(600,200);
+	  dial.setLocationRelativeTo(frame);
+	  label1 = new JLabel("       Here goes our team info");
+	  dial.add(label1);
+	  
           frame.getContentPane().add(panel);
-            
-            frame.setVisible(true);
+          frame.setVisible(true);
   }
   
   public static void main(String[] args) 
@@ -111,6 +124,10 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener
         } catch (IOException ex) {
             Logger.getLogger(FinalProjectCSE360.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    if(e.getSource() == team)
+    {
+    	dial.setVisible(true);
     }
     if(e.getSource() == add)
     {
