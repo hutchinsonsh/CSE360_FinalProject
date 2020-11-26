@@ -26,13 +26,11 @@ public void addAttendance()
                row2.delete(k);
             }
         }
-                PickDate();
 		Load_Roster();
                 
                 //compare add.attendance with load_roster and print
                 row2.retainAll(row);
          
                 System.out.println(row2);
-               // print date also
-               System.out.println(Date)
+               
 	       
