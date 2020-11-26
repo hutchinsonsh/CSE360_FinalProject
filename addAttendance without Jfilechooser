@@ -22,8 +22,8 @@ public void addAttendance()
 	       for (int i = 0; i < row2.size()-1; i++) {
                for (int k = i+1; k < row2.size(); k++) {
                if(row2.get(i) == row2.get(k))
-               i.add(k);
-               k.clear(k);
+              //row2[i]= row2[i] + row2[k] ;
+               row2.delete(k);
             }
         }
                 PickDate();
