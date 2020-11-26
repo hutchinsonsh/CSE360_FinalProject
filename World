@@ -16,6 +16,8 @@ public class World extends JFrame implements ActionListener
   JMenuItem load, add, save, plot;
   JPanel panel;
   JTable table;
+  JDialog dial;
+  JLabel label1;
   
   JButton btn;
     JFrame frame;
@@ -63,6 +65,9 @@ public class World extends JFrame implements ActionListener
 	    
 	  JMenu about = new JMenu("About");
 	  menu.add(about);
+	  
+	  team = new JMenuItem("Team Info");
+	  team.addActionListener(this);
 	    
 	  load = new JMenuItem("Load a Roster");
 	  load.addActionListener(this);
@@ -80,6 +85,14 @@ public class World extends JFrame implements ActionListener
 	  file.add(add);
 	  file.add(save);
 	  file.add(plot);
+	  about.add(team);
+	  
+	  dial = new JDialog(frame,"Team Info");
+	  dial.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	  dial.setSize(600,200);
+	  dial.setLocationRelativeTo(frame);
+	  label1 = new JLabel("       Here goes our team info");
+	  dial.add(label1);
   }
   
   public static void main(String[] args) 
@@ -99,6 +112,10 @@ public class World extends JFrame implements ActionListener
     if(e.getSource() == add)
     {
         PickDate();
+    }
+    if(e.getSource() == team)
+    {
+    	dial.setVisible(true);
     }
     if(e.getSource() == save)
 		try {
