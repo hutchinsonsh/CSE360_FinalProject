@@ -22,12 +22,13 @@ public void addAttendance()
 	       for (int i = 0; i < row2.size()-1; i++) {
                for (int k = i+1; k < row2.size(); k++) {
                if(row2.get(i) == row2.get(k))
-              //row2[i]= row2[i] + row2[k] ;
+              //look over
+	      row2[i]= row2[i] + row2[k];
                row2.delete(k);
             }
         }
 		Load_Roster();
-                
+		
                 //compare add.attendance with load_roster and print
                 row2.retainAll(row);
          
