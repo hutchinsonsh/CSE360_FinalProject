@@ -1,0 +1,37 @@
+public void addAttendance()
+		//read csv using jfilechooser
+		//need help 
+		//load add.attendance
+		Scanner addA = new Scanner(new File(csv));
+
+	        ArrayList<ArrayList<String>> arrayLists = new ArrayList<>();
+
+	        String[] tempray;
+	        String tempString;
+
+
+	        while (input.hasNextLine())
+	        {
+	        	ArrayList<String> row2 = new ArrayList<>();
+	            tempString = input.nextLine(); 
+	            tempray = tempString.split(","); 
+	            Collections.addAll(row2, tempray);
+	            arrayList.add(row2);
+	        }
+	        //compare and combine
+	       for (int i = 0; i < row2.size()-1; i++) {
+               for (int k = i+1; k < row2.size(); k++) {
+               if(row2.get(i) == row2.get(k))
+               i.add(k);
+               k.clear(k);
+            }
+        }
+                Load_Roster();
+                
+                //compare add.attendance with load_roster and print
+                row2.retainAll(row);
+         
+                System.out.println(row2);
+               // print date also
+               System.out.println(date)
+	       
