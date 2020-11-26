@@ -1,25 +1,31 @@
-// MAIN
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package finalprojectcse360;
 
-package FinalProject;
-
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
+import javax.swing.table.DefaultTableModel;
 
-public class World extends JFrame implements ActionListener
+public class FinalProjectCSE360 extends JFrame implements ActionListener
 {
-  Roster roster = new Roster();
-//JMenuItems
-  JMenuItem load, add, save, plot;
-  JPanel panel;
-  JTable table;
-  JDialog dial;
-  JLabel label1;
+    Roster roster = new Roster();
+    //JMenuItems
+    JMenuItem load, add, save, plot;
+    JPanel panel;
   
-  JButton btn;
+    JButton btn;
     JFrame frame;
     JComboBox<String> m;
     JComboBox<Integer> d;
@@ -27,47 +33,36 @@ public class World extends JFrame implements ActionListener
     int day;
     String month;
     
-  public World()
-  {
+    JTable table;
+    DefaultTableModel model;
+    JScrollPane scroll;
+    
+    String [] headers = {"ID","First Name","Last Name","Program","Level","ASURITE"};
+    String [][] data;
+    
+    int n = 0;
+    
   
-	  JFrame frame = new JFrame("Menu");
+    public FinalProjectCSE360()
+    {
+
+	JFrame frame = new JFrame("Menu");
 	  
-	  frame.setSize(700,500);
-	  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	  
-	  // Table arrays
-	  
-	  String [] headers = {"ID","First Name","Last Name","Program","Level","ASURITE"};
-	  
-	  Object [][] input = {
-			  {"121","Javier","Gonzalez","Comp Sci","Graduate","Jgonz"},
-	  };
-	  
-	  table = new JTable(input,headers);
-	  table.setPreferredScrollableViewportSize(new Dimension(400,50));
-	  table.setFillsViewportHeight(true);
-	  
-	  // Adding Scroll
-	  JScrollPane scroll = new JScrollPane(table);
+	frame.setSize(700,500);
+	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	  
 	  panel = new JPanel();
-	  panel.add(table);
-	  panel.add(scroll);
-	  
-	  frame.add(panel);
-	  frame.setVisible(true);
+	  //frame.add(panel);
+          panel.setLayout(new BorderLayout());
 	  
 	  JMenuBar menu = new JMenuBar();
-	  frame.setJMenuBar(menu);
-	    
+	  frame.setJMenuBar(menu);  
+            
 	  JMenu file = new JMenu("File");
 	  menu.add(file);
 	    
 	  JMenu about = new JMenu("About");
 	  menu.add(about);
-	  
-	  team = new JMenuItem("Team Info");
-	  team.addActionListener(this);
 	    
 	  load = new JMenuItem("Load a Roster");
 	  load.addActionListener(this);
@@ -80,19 +75,22 @@ public class World extends JFrame implements ActionListener
 	  
 	  plot = new JMenuItem("Plot Data");
 	  plot.addActionListener(this);
+          
+        table = new JTable();
+        model = (DefaultTableModel)table.getModel();
+        model.setColumnIdentifiers(headers);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        scroll = new JScrollPane(table); 
+        panel.add(scroll, BorderLayout.CENTER);
+        model.fireTableDataChanged();
 	  
 	  file.add(load);
 	  file.add(add);
 	  file.add(save);
 	  file.add(plot);
-	  about.add(team);
-	  
-	  dial = new JDialog(frame,"Team Info");
-	  dial.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	  dial.setSize(600,200);
-	  dial.setLocationRelativeTo(frame);
-	  label1 = new JLabel("       Here goes our team info");
-	  dial.add(label1);
+          frame.getContentPane().add(panel);
+            
+            frame.setVisible(true);
   }
   
   public static void main(String[] args) 
@@ -107,15 +105,17 @@ public class World extends JFrame implements ActionListener
     {
         String cvs = getCVS();
         if(!cvs.equalsIgnoreCase("canceled"))
-            roster.load(cvs);
+            try {
+                roster.load(cvs);
+                addCol();
+        } catch (IOException ex) {
+            Logger.getLogger(FinalProjectCSE360.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     if(e.getSource() == add)
     {
+        
         PickDate();
-    }
-    if(e.getSource() == team)
-    {
-    	dial.setVisible(true);
     }
     if(e.getSource() == save)
 		try {
@@ -130,7 +130,7 @@ public class World extends JFrame implements ActionListener
             frame.dispose();
             String cvs = getCVS();
             if(!cvs.equalsIgnoreCase("canceled"))
-            roster.addAttendance(day, month, cvs);
+            roster.addAttendance(cvs);
         }
   }
   
@@ -177,4 +177,24 @@ public class World extends JFrame implements ActionListener
         frame.add(btn);
         frame.setLayout(new GridLayout(5,1));
     }
+    
+    public void addColumn()
+    {
+        //String [] col = roster.getRoster().get(1).toArray(new String[0]);
+            model.addColumn("Date");
+            model.fireTableDataChanged();
+    }
+    
+    public void addCol()
+    {
+        String[] row;
+        for(int i = 0; i < roster.getRoster().size(); i++)
+        {
+            row = roster.getRoster().get(i).toArray(new String[0]);
+            model.addRow(row);
+        }
+        model.fireTableDataChanged();
+        addColumn();
+    }
+
 }
