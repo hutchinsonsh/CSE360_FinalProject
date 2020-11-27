@@ -7,6 +7,7 @@ public class Roster extends Observable
 {
   private ArrayList<ArrayList<Integer>> rosterList;
   private int rosterSize;
+	
   
   // constructor class
   public Roster()
@@ -32,10 +33,102 @@ public class Roster extends Observable
 	        }
   }
 
-  public void addAttendance()
-  {
-    Divine's code
-  }
+//-------------------------------------------------------------------------------------------------------------------
+// Omar's new code includes load roster, add attendance, compare attendance to roster, and dialog box 
+// 
+// can't print the last line in the dialog box properly because the way I did it doesn't let me output a linkedlist
+// we need to find a way to print contents of a linked list on the dialog box. Help needed
+// All information is avaliable just stuck on displaying it on the dialog box
+//--------------------------------------------------------------------------------------------------------------------
+	static ArrayList Student = new ArrayList();
+	static JFrame f;
+	public static ArrayList read(String csvFile) throws IOException {
+		 Scanner input = new Scanner(new File(csvFile));
+
+	        ArrayList<ArrayList<String>> arrayList = new ArrayList<>();
+	        
+	        String[] tempArr;
+	        String tempStr;
+	        
+
+	        while (input.hasNextLine())
+	        {
+	        	ArrayList<String> row = new ArrayList<>();
+	            tempStr = input.nextLine(); 
+	            tempArr = tempStr.split(","); 
+	            Collections.addAll(row, tempArr);
+	            arrayList.add(row);
+	        }
+	        
+	        return arrayList;
+	        //System.out.println(arrayList);
+	}
+	
+	public static ArrayList AddAttendance(String csvFile, ArrayList roster) throws IOException{
+			
+			Scanner input = new Scanner(new File(csvFile));
+			ArrayList<ArrayList<String>> attendanceList = new ArrayList<>();
+			
+			String[] tempArr;
+	        String tempStr;
+	        
+
+	        while (input.hasNextLine())
+	        {
+	        	ArrayList<String> row = new ArrayList<>();
+	            tempStr = input.nextLine(); 
+	            tempArr = tempStr.split(","); 
+	            Collections.addAll(row, tempArr);
+	            attendanceList.add(row);
+	        }
+
+        	System.out.println(attendanceList);
+	        
+	        
+	        for(int i = 0 ; i < attendanceList.size() ; i++)
+	        {
+	        	for(int j = i+1 ; j < attendanceList.size(); j++)
+	        	{
+	        		if(attendanceList.get(i).get(0).contentEquals(attendanceList.get(j).get(0)))
+	        		{
+	        			int one = Integer.parseInt(attendanceList.get(i).get(1));
+	        			int two = Integer.parseInt(attendanceList.get(j).get(1));
+	        			int three = one + two;
+	        			String str = Integer.toString(three); 
+	        			ArrayList<String> temp = new ArrayList();
+	        			temp.add(attendanceList.get(i).get(0));
+	        			temp.add(str);
+	        			attendanceList.set(i, temp);
+	        			attendanceList.remove(j);
+	        			
+	        		}
+	        	}	
+	        }
+	        
+	        int count = 0;
+	        System.out.println(roster);
+	        for(int i = 0; i < roster.size(); i++)
+	        {
+	        	for(int j = 0; j < attendanceList.size(); j++)
+	        	{
+	        		if(((ArrayList) roster.get(i)).get(5).equals(attendanceList.get(j).get(0)))
+	        		{
+	        			((ArrayList) roster.get(i)).add(attendanceList.get(j).get(1));
+	        			attendanceList.remove(j);
+	        			count++;
+	        		}
+	        	}
+	        }
+	        
+	        System.out.println(attendanceList.size());
+	        
+	        
+	        JOptionPane.showMessageDialog(f,"Data loaded for " + count + " users in the roster" + "\n" + attendanceList.size()+
+	        		" additional attendee was found" + "\n" + attendanceList.get(0).get(0) + " connected for " + attendanceList.get(0).get(1) + " minutes");
+	        
+	        System.out.println(roster);
+	        return roster;
+	}
 
   // I'll add comments later; creats file and writes each element w/ comma separating them
   public void save()
