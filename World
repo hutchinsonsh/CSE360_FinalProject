@@ -18,6 +18,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class FinalProjectCSE360 extends JFrame implements ActionListener {
 
+    // global variables
+    // for main layout
     Roster roster = new Roster();
     JMenuItem load, add, save, plot, team;
     JPanel panel;
@@ -29,17 +31,16 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener {
     JComboBox<String> m;
     JComboBox<Integer> d;
 
-    int day;
-    String month;
-
     JTable table;
     DefaultTableModel model;
     JScrollPane scroll;
-
+    
     String[] headers = {"ID", "First Name", "Last Name", "Program", "Level", "ASURITE"};
     String[][] data;
-
-    int n = 0;
+    
+    // for calandar pop-up
+    int day;
+    String month;
 
     public FinalProjectCSE360() {
         JFrame frame = new JFrame("Menu");
@@ -73,6 +74,7 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener {
         plot = new JMenuItem("Plot Data");
         plot.addActionListener(this);
 
+        // for creating table; adds horizontal/vertical scrollbar
         table = new JTable();
         model = (DefaultTableModel) table.getModel();
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -89,6 +91,7 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener {
         file.add(plot);
         about.add(team);
 
+        // for 'about' section; prints out info on team
         dial = new JDialog(frame, "Team Info");
         dial.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         dial.setSize(600, 200);
