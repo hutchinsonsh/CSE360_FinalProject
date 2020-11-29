@@ -24,7 +24,7 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener {
     JDialog dial;
     JLabel label1;
 
-    JButton btn;
+    JButton date;
     JFrame frame;
     JComboBox<String> m;
     JComboBox<Integer> d;
