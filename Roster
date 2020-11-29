@@ -147,16 +147,22 @@ public class Roster extends Observable {
      * @return void
      * @throws IOException
     */
-    public void save() throws IOException {
+    public void save(String[] header) throws IOException 
+    {
         File file = new File("saveRoster.cvs");
         file.createNewFile();
         FileWriter writer = new FileWriter(file);
+        for(int i = 0; i < header.length; i++)
+        {
+            writer.write(header[i] + ",");
+        }
         for (int i = 0; i < rosterList.size(); i++) {
             for (int j = 0; j < rosterList.get(i).size(); j++) {
                 writer.write(rosterList.get(i).get(j) + ",");
             }
         }
         writer.close();
+        JOptionPane.showMessageDialog(null, "The file has been saved as 'saveRoster.cvs'");
     }
 
   public void plot()
