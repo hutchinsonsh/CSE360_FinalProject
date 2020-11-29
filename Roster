@@ -167,10 +167,14 @@ public class Roster extends Observable {
     		int count1=0, count2=0, count3=0, count4=0, count5=0, count6=0, count7=0, count8=0, count9=0, count10=0;
     		//maybe issue with using "series1" for each series???
     	    XYSeries series1 = new XYSeries(rosterList.get(0).get(j));  //XYSeries("date"), date depends on assumption
-    		for(int i = 1; i < rosterList.size(); i++) //start either i = 0 or i = 1, depends on assumption
+    		for(int i = 0; i < rosterList.size(); i++) //start either i = 0 or i = 1, depends on assumption
     		{
-	    		attendance = ((rosterList.get(i).get(j))*10)/75;
-	    		if (attendance < 1.5)
+	    		attendance = ((Integer.parseInt(rosterList.get(i).get(j)))*10) /75;
+	    		System.out.println(attendance);
+    			//attendance = Integer.parseInt(rosterList.get(i).get(j));
+	    		if(attendance <= 0)
+	    		{}
+	    		else if (attendance < 1.5)
 	    		{
 	    			count1++;
 	    		}
@@ -223,6 +227,7 @@ public class Roster extends Observable {
     		series1.add(9.0,count9);
     		series1.add(10.0,count10);
     		
+    		
     		dataset.addSeries(series1);
 	    }
 	    
@@ -231,23 +236,16 @@ public class Roster extends Observable {
 	    // Create chart  
 	    JFreeChart chart = ChartFactory.createScatterPlot(  
 	        "Student Attendance",   
-	        "X-Axis", "Count", dataset, PlotOrientation.HORIZONTAL, true, true, false);  
+	        "X-Axis", "Count", dataset, PlotOrientation.VERTICAL, true, true, false);  
 	  
 	      
 	    //Changes background color  
 	    XYPlot plot = (XYPlot)chart.getPlot();  
 	    plot.setBackgroundPaint(new Color(255,228,196));  
 	      
-	     
-	    // Create Panel  
-	    ChartPanel panel = new ChartPanel(chart);  
-	    setContentPane(panel); 
-	    
-	    PlotData example = new PlotData("Scatter Chart Example");  
-		     example.setSize(800, 400);  
-		      example.setLocationRelativeTo(null);  
-		     example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);  
-		      example.setVisible(true);  
+	      ChartFrame frame = new ChartFrame("First", chart);
+	        frame.pack();
+	        frame.setVisible(true);
   }
 
 }
