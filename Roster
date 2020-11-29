@@ -29,6 +29,9 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYDataset;  
 import org.jfree.data.xy.XYSeries;  
 import org.jfree.data.xy.XYSeriesCollection; 
+//Riley: i ran into an error with XYSeriesCollection but it got fixed by just commenting it out
+//and then right clicking the error message in the code XYSeriesCollection dataset = new XYSeriesCollection();
+//and then adding the import back again. I have no idea why this happens though
 
 public class Roster extends Observable {
 
