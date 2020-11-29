@@ -41,7 +41,7 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener {
     // for calandar pop-up
     int day;
     String month;
-    ArrayList<String> dates;
+    ArrayList<String> dates = new ArrayList<String>();
 
     public FinalProjectCSE360() {
         JFrame frame = new JFrame("Menu");
