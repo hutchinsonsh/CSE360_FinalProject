@@ -18,160 +18,151 @@ import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 
-public class FinalProjectCSE360 extends JFrame implements ActionListener
-{
+public class FinalProjectCSE360 extends JFrame implements ActionListener {
+
     Roster roster = new Roster();
-    //JMenuItems
-    JMenuItem load, add, save, plot;
+    JMenuItem load, add, save, plot, team;
     JPanel panel;
     JDialog dial;
     JLabel label1;
-  
+
     JButton btn;
     JFrame frame;
     JComboBox<String> m;
     JComboBox<Integer> d;
-    
+
     int day;
     String month;
-    
+
     JTable table;
     DefaultTableModel model;
     JScrollPane scroll;
-    
-    String [] headers = {"ID","First Name","Last Name","Program","Level","ASURITE"};
-    String [][] data;
-    
+
+    String[] headers = {"ID", "First Name", "Last Name", "Program", "Level", "ASURITE"};
+    String[][] data;
+
     int n = 0;
-    
-  
-    public FinalProjectCSE360()
-    {
 
-	JFrame frame = new JFrame("Menu");
-	  
-	frame.setSize(700,500);
-	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	  
-	  panel = new JPanel();
-	  //frame.add(panel);
-          panel.setLayout(new BorderLayout());
-	  
-	  JMenuBar menu = new JMenuBar();
-	  frame.setJMenuBar(menu);  
-            
-	  JMenu file = new JMenu("File");
-	  menu.add(file);
-	    
-	  JMenu about = new JMenu("About");
-	  menu.add(about);
-	  
-	  team = new JMenuItem("Team Info");
-	  team.addActionListener(this);
-	    
-	  load = new JMenuItem("Load a Roster");
-	  load.addActionListener(this);
-	    
-	  add = new JMenuItem("Add Attendance");
-	  add.addActionListener(this);
-	  
-	  save = new JMenuItem("Save");
-	  save.addActionListener(this);
-	  
-	  plot = new JMenuItem("Plot Data");
-	  plot.addActionListener(this);
-          
+    public FinalProjectCSE360() {
+        JFrame frame = new JFrame("Menu");
+        frame.setSize(700, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        JMenuBar menu = new JMenuBar();
+        frame.setJMenuBar(menu);
+
+        JMenu file = new JMenu("File");
+        menu.add(file);
+
+        JMenu about = new JMenu("About");
+        menu.add(about);
+
+        team = new JMenuItem("Team Info");
+        team.addActionListener(this);
+
+        load = new JMenuItem("Load a Roster");
+        load.addActionListener(this);
+
+        add = new JMenuItem("Add Attendance");
+        add.addActionListener(this);
+
+        save = new JMenuItem("Save");
+        save.addActionListener(this);
+
+        plot = new JMenuItem("Plot Data");
+        plot.addActionListener(this);
+
         table = new JTable();
-        model = (DefaultTableModel)table.getModel();
-        model.setColumnIdentifiers(headers);
+        model = (DefaultTableModel) table.getModel();
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        scroll = new JScrollPane(table); 
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        scroll = new JScrollPane(table);
+        scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         panel.add(scroll, BorderLayout.CENTER);
-        model.fireTableDataChanged();
-	  
-	  file.add(load);
-	  file.add(add);
-	  file.add(save);
-	  file.add(plot);
-	  about.add(team);
+        panel.revalidate();
 
-	  dial = new JDialog(frame,"Team Info");
-	  dial.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	  dial.setSize(600,200);
-	  dial.setLocationRelativeTo(frame);
-	  label1 = new JLabel("Team Members: Omar Al-Sharif,\r\n" + 
-	  		" Riley Barrett,\r\n" + 
-	  		" Sarah Hills,\r\n" + 
-	  		" Divine Lee,\r\n" + 
-	  		" & Heman Sran\r\n" + 
-	  		"");
-	  dial.add(label1);
-	  
-          frame.getContentPane().add(panel);
-          frame.setVisible(true);
-  }
-  
-  public static void main(String[] args) 
-  {
-    FinalProjectCSE360 world = new FinalProjectCSE360();
-  }
-  
-  // watches to see if button is pressed; if so-> calls resulting method in roster
-  public void actionPerformed(ActionEvent e)
-  {
-    if(e.getSource() == load)
-    {
-        String cvs = getCVS();
-        if(!cvs.equalsIgnoreCase("canceled"))
-            try {
-                roster.load(cvs);
-                addCol();
-        } catch (IOException ex) {
-            Logger.getLogger(FinalProjectCSE360.class.getName()).log(Level.SEVERE, null, ex);
+        file.add(load);
+        file.add(add);
+        file.add(save);
+        file.add(plot);
+        about.add(team);
+
+        dial = new JDialog(frame, "Team Info");
+        dial.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        dial.setSize(600, 200);
+        dial.setLocationRelativeTo(frame);
+        label1 = new JLabel("       Here goes our team info");
+        dial.add(label1);
+
+        frame.getContentPane().add(panel);
+        frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        FinalProjectCSE360 world = new FinalProjectCSE360();
+    }
+
+    // watches to see if button is pressed; if so-> calls resulting method in roster
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == load) {
+            String cvs = getCVS();
+            if (!cvs.equalsIgnoreCase("canceled")) {
+                try {
+                    roster.load(cvs);
+                    addRow();
+                } catch (IOException ex) {
+                    Logger.getLogger(FinalProjectCSE360.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
-    }
-    if(e.getSource() == team)
-    {
-    	dial.setVisible(true);
-    }
-    if(e.getSource() == add)
-    {
-        
-        PickDate();
-    }
-    if(e.getSource() == save)
-		try {
-			roster.save();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-    if(e.getSource() == plot)
-    	roster.plot();
-    if(e.getSource() == btn)
-        {
+        if (e.getSource() == team) {
+            dial.setVisible(true);
+        }
+        if (e.getSource() == add) {
+            PickDate();
+        }
+        if (e.getSource() == save) {
+            try {
+                roster.save();
+            } catch (IOException ex) {
+                Logger.getLogger(FinalProjectCSE360.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //if(e.getSource() == plot)
+        //roster.plot();
+        if (e.getSource() == btn) {
             frame.dispose();
             String cvs = getCVS();
-            if(!cvs.equalsIgnoreCase("canceled"))
-            roster.addAttendance(cvs);
+            if (!cvs.equalsIgnoreCase("canceled")) {
+                try {
+                    month = (String)m.getSelectedItem();
+                    day = (int)d.getSelectedItem();
+                    roster.add(cvs);
+                    addCol();
+                } catch (IOException ex) {
+                    Logger.getLogger(FinalProjectCSE360.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
-  }
-  
-  // gets cvs file
-  // checks if :    1: File ends in cvs
-  //                2: Option was not canceled
-    public String getCVS()
-    {
+    }
+
+    // gets cvs file
+    // checks if :    1: File ends in cvs
+    //                2: Option was not canceled
+    public String getCVS() {
         JFileChooser file = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         int r = file.showOpenDialog(null);
-        if(r == JFileChooser.APPROVE_OPTION)
-        {
+        if (r == JFileChooser.APPROVE_OPTION) {
             return file.getSelectedFile().getAbsolutePath();
         }
         return "canceled";
     }
-    
-    public void PickDate()
-    {
+
+    public void PickDate() {
         frame = new JFrame("date picker");
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -181,42 +172,46 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener
         lb1.setVisible(true);
         JLabel lb2 = new JLabel("Select Day");
         lb2.setVisible(true);
-        
-        String[] month = { "Jan","Feb", "March","April","May","June","July",
+
+        String[] month = {"Jan", "Feb", "March", "April", "May", "June", "July",
             "Aug", "Sept", "Oct", "Nov", "Dec"};
-        Integer[] day = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 
+        Integer[] day = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
             18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
 
         m = new JComboBox<String>(month);
         d = new JComboBox<>(day);
         btn = new JButton("OK");
         btn.addActionListener(this);
-        
+
         frame.add(lb1);
         frame.add(m);
         frame.add(lb2);
         frame.add(d);
         frame.add(btn);
-        frame.setLayout(new GridLayout(5,1));
+        frame.setLayout(new GridLayout(5, 1));
     }
-    
-    public void addColumn()
-    {
-        //String [] col = roster.getRoster().get(1).toArray(new String[0]);
-            model.addColumn("Date");
-            model.fireTableDataChanged();
+
+    public void addCol() {
+        model.addColumn(String.valueOf(day) + " " + month);
+        model.fireTableDataChanged();
+
+        int num = model.getColumnCount();
+        for (int i = 0; i < roster.getRoster().size(); i++) {
+            model.setValueAt(roster.getRoster().get(i).get(num - 1), i, num - 1);
+        }
     }
-    
-    public void addCol()
-    {
+
+    public void addRow() {
+        model.setColumnIdentifiers(headers);
+        model.fireTableDataChanged();
+
         String[] row;
-        for(int i = 0; i < roster.getRoster().size(); i++)
-        {
+        for (int i = 0; i < roster.getRoster().size(); i++) {
             row = roster.getRoster().get(i).toArray(new String[0]);
             model.addRow(row);
         }
         model.fireTableDataChanged();
-        addColumn();
     }
 
 }
+
