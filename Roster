@@ -1,37 +1,62 @@
-package FinalProject;
+package finalprojectcse360;
+
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Observable;
+import java.util.Scanner;
+
 import java.util.Observable;
 import java.util.ArrayList;
 import java.io.FileWriter;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
-public class Roster extends Observable
-{
-  private ArrayList<ArrayList<Integer>> rosterList;
-  private int rosterSize;
-	
-  
-  // constructor class
-  public Roster()
-  {
-    rosterList = new ArrayList<ArrayList<Integer>>(0);
-    rosterSize = 0;
-  }
+import java.util.ArrayList; 
+import java.awt.Color;   
+import javax.swing.JFrame;  
+import javax.swing.SwingUtilities;  
+import javax.swing.WindowConstants;  
 
-  public void load(String cvs) throws IOException
-  {
+import org.jfree.chart.ChartFactory;  
+import org.jfree.chart.ChartPanel;  
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;  
+import org.jfree.data.xy.XYDataset;  
+import org.jfree.data.xy.XYSeries;  
+import org.jfree.data.xy.XYSeriesCollection; 
+
+public class Roster extends Observable {
+
+    private ArrayList<ArrayList<String>> rosterList;
+    private int rosterSize;
+
+    // constructor class
+    public Roster() {
+        rosterList = new ArrayList<ArrayList<String>>(0);
+        rosterSize = 0;
+    }
+
+    public ArrayList<ArrayList<String>> getRoster() {
+        return rosterList;
+    }
+
+    public void load(String cvs) throws IOException {
         Scanner input = new Scanner(new File(cvs));
         String[] tempArr;
-	        String tempStr;
-	        
+        String tempStr;
 
-	        while (input.hasNextLine())
-	        {
-	        	ArrayList<String> row = new ArrayList<>();
-	            tempStr = input.nextLine(); 
-	            tempArr = tempStr.split(","); 
-	            Collections.addAll(row, tempArr);
-	            rosterList.add(row);
-	        }
-  }
+        while (input.hasNextLine()) {
+            ArrayList<String> row = new ArrayList<>();
+            tempStr = input.nextLine();
+            tempArr = tempStr.split(",");
+            Collections.addAll(row, tempArr);
+            rosterList.add(row);
+        }
+    }
 
 //-------------------------------------------------------------------------------------------------------------------
 // Omar's new code includes load roster, add attendance, compare attendance to roster, and dialog box 
@@ -40,111 +65,92 @@ public class Roster extends Observable
 // we need to find a way to print contents of a linked list on the dialog box. Help needed
 // All information is avaliable just stuck on displaying it on the dialog box
 //--------------------------------------------------------------------------------------------------------------------
-	static ArrayList Student = new ArrayList();
-	static JFrame f;
-	public static ArrayList read(String csvFile) throws IOException {
-		 Scanner input = new Scanner(new File(csvFile));
+    public void add(String csvFile) throws IOException {
 
-	        ArrayList<ArrayList<String>> arrayList = new ArrayList<>();
-	        
-	        String[] tempArr;
-	        String tempStr;
-	        
+        Scanner input = new Scanner(new File(csvFile));
+        ArrayList<ArrayList<String>> attendanceList = new ArrayList<>();
 
-	        while (input.hasNextLine())
-	        {
-	        	ArrayList<String> row = new ArrayList<>();
-	            tempStr = input.nextLine(); 
-	            tempArr = tempStr.split(","); 
-	            Collections.addAll(row, tempArr);
-	            arrayList.add(row);
-	        }
-	        
-	        return arrayList;
-	        //System.out.println(arrayList);
-	}
-	
-	public static ArrayList AddAttendance(String csvFile, ArrayList roster) throws IOException{
-			
-			Scanner input = new Scanner(new File(csvFile));
-			ArrayList<ArrayList<String>> attendanceList = new ArrayList<>();
-			
-			String[] tempArr;
-	        String tempStr;
-	        
+        String[] tempArr;
+        String tempStr;
 
-	        while (input.hasNextLine())
-	        {
-	        	ArrayList<String> row = new ArrayList<>();
-	            tempStr = input.nextLine(); 
-	            tempArr = tempStr.split(","); 
-	            Collections.addAll(row, tempArr);
-	            attendanceList.add(row);
-	        }
+        while (input.hasNextLine()) {
+            ArrayList<String> row = new ArrayList<>();
+            tempStr = input.nextLine();
+            tempArr = tempStr.split(",");
+            Collections.addAll(row, tempArr);
+            attendanceList.add(row);
+        }
 
-        	System.out.println(attendanceList);
-	        
-	        
-	        for(int i = 0 ; i < attendanceList.size() ; i++)
-	        {
-	        	for(int j = i+1 ; j < attendanceList.size(); j++)
-	        	{
-	        		if(attendanceList.get(i).get(0).contentEquals(attendanceList.get(j).get(0)))
-	        		{
-	        			int one = Integer.parseInt(attendanceList.get(i).get(1));
-	        			int two = Integer.parseInt(attendanceList.get(j).get(1));
-	        			int three = one + two;
-	        			String str = Integer.toString(three); 
-	        			ArrayList<String> temp = new ArrayList();
-	        			temp.add(attendanceList.get(i).get(0));
-	        			temp.add(str);
-	        			attendanceList.set(i, temp);
-	        			attendanceList.remove(j);
-	        			
-	        		}
-	        	}	
-	        }
-	        
-	        int count = 0;
-	        System.out.println(roster);
-	        for(int i = 0; i < roster.size(); i++)
-	        {
-	        	for(int j = 0; j < attendanceList.size(); j++)
-	        	{
-	        		if(((ArrayList) roster.get(i)).get(5).equals(attendanceList.get(j).get(0)))
-	        		{
-	        			((ArrayList) roster.get(i)).add(attendanceList.get(j).get(1));
-	        			attendanceList.remove(j);
-	        			count++;
-	        		}
-	        	}
-	        }
+        for (int i = 0; i < attendanceList.size(); i++) {
+            for (int j = i + 1; j < attendanceList.size() - 1; j++) {
+                if (attendanceList.get(i).get(0).contentEquals(attendanceList.get(j).get(0))) {
+                    int one = Integer.parseInt(attendanceList.get(i).get(1));
+                    int two = Integer.parseInt(attendanceList.get(j).get(1));
+                    int three = one + two;
+                    String str = Integer.toString(three);
+                    ArrayList<String> temp = new ArrayList();
+                    temp.add(attendanceList.get(i).get(0));
+                    temp.add(str);
+                    attendanceList.set(i, temp);
+                    attendanceList.remove(j);
+
+                }
+            }
+        }
+
+        int count = rosterList.get(0).size();
+        int addAtt = 0;
+        for (int i = 0; i < rosterList.size(); i++) {
+            for (int j = 0; j < attendanceList.size(); j++) {
+                if (rosterList.get(i).get(5).equals(attendanceList.get(j).get(0))) {
+                    ((ArrayList) rosterList.get(i)).add(attendanceList.get(j).get(1));
+                    attendanceList.remove(j);
+                    addAtt++;
+                }
+            }
+        }
+
+        // for all the people in the roster who did not show up to class, puts their time as '0'
+        // without this, the 
+        for (int i = 0; i < rosterList.size(); i++) {
+            if (rosterList.get(i).size() == count) {
+                ((ArrayList) rosterList.get(i)).add("0");
+            }
+        }
+        /*
+                for(int i = 0; i < rosterList.size(); i++)
+                {
+                    for(int j = 0; j < rosterList.get(i).size(); j++)
+                    {
+                        System.out.print(rosterList.get(i).get(j) + " ");
+                    }
+                    System.out.println();
+                }
 	        
 	        System.out.println(attendanceList.size());
-	        
-	        
-	        JOptionPane.showMessageDialog(f,"Data loaded for " + count + " users in the roster" + "\n" + attendanceList.size()+
-	        		" additional attendee was found" + "\n" + attendanceList.get(0).get(0) + " connected for " + attendanceList.get(0).get(1) + " minutes");
-	        
-	        System.out.println(roster);
-	        return roster;
-	}
+         */
+        
+        if(attendanceList.size()==0)
+            JOptionPane.showMessageDialog(null, "Data is loaded for " + addAtt + " users in the roster.\nNo additional attendees were found");
+        else if(attendanceList.size()==1)
+            JOptionPane.showMessageDialog(null, "Data is loaded for " + addAtt + " users in the roster.\n1 additional attendee was found:\n" + attendanceList.get(0).get(0)+ " connected for " + attendanceList.get(0).get(1) + " minutes");
+        else
+            JOptionPane.showMessageDialog(null, "Data is loaded for " + addAtt + " users in the roster.\n"+ attendanceList.size()+ " additional attendees were found");
 
-  // I'll add comments later; creats file and writes each element w/ comma separating them
-  public void save()
-  {
-      File file = new File("saveRoster.cvs");   
-      file.createNewFile();
-      FileWriter writer = new FileWriter(file);
-      for(int i = 0; i < rosterList.size(); i++)
-      {
-        for(int j = 0; j < rosterList.get(i).size(); j++)
-        {
-          writer.write(rosterList.get(i).get(j)+",");
+    }
+
+    // I'll add comments later; creats file and writes each element w/ comma separating them
+    public void save() throws IOException {
+        File file = new File("saveRoster.cvs");
+        file.createNewFile();
+        FileWriter writer = new FileWriter(file);
+        for (int i = 0; i < rosterList.size(); i++) {
+            for (int j = 0; j < rosterList.get(i).size(); j++) {
+                writer.write(rosterList.get(i).get(j) + ",");
+            }
         }
-      }
-      writer.close();
-  }
+        writer.close();
+    }
 
   public void plot()
   {
@@ -244,5 +250,5 @@ public class Roster extends Observable
 		      example.setVisible(true);  
   }
 
-
 }
+
