@@ -16,6 +16,16 @@ import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 
+/** Author: Heman Sran
+* This is the FinalProjectCSE360 class which includes the main method
+* and the action listener which controls functions of the buttons
+* in the JMenu.
+* 
+* It includes the constructor method, main method, and actionPerformed.
+*
+* @param null
+* @return void
+*/
 public class FinalProjectCSE360 extends JFrame implements ActionListener {
 
     // global variables
@@ -41,15 +51,27 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener {
     // for calandar pop-up
     int day;
     String month;
-
+    
+ /** Author: Heman Sran
+ * This is the FinalProjectCSE360 method which sets up the
+ * frame and layout for the GUI.
+ * 
+ *
+ * @param null
+ * @return void
+ */
     public FinalProjectCSE360() {
+    
+        // JFrame object
         JFrame frame = new JFrame("Menu");
         frame.setSize(700, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // JPanel object
         panel = new JPanel();
         panel.setLayout(new BorderLayout());
-
+        
+        // JMenu object
         JMenuBar menu = new JMenuBar();
         frame.setJMenuBar(menu);
 
@@ -85,6 +107,7 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener {
         panel.add(scroll, BorderLayout.CENTER);
         panel.revalidate();
 
+        // Adding JMenu items
         file.add(load);
         file.add(add);
         file.add(save);
