@@ -16,6 +16,16 @@ import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 
+/** Author: Heman Sran
+* This is the FinalProjectCSE360 class which includes the main method
+* and the action listener which controls functions of the buttons
+* in the JMenu.
+* 
+* It includes the constructor method, main method, and actionPerformed.
+*
+* @param null
+* @return void
+*/
 public class FinalProjectCSE360 extends JFrame implements ActionListener {
 
     // global variables
@@ -42,12 +52,23 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener {
     int day;
     String month;
     ArrayList<String> dates = new ArrayList<String>();
-
+    
+ /** Author: Heman Sran
+ * This is the FinalProjectCSE360 method which sets up the
+ * frame and layout for the GUI.
+ * 
+ *
+ * @param null
+ * @return void
+ */
     public FinalProjectCSE360() {
+        
+        // JFrame Object
         JFrame frame = new JFrame("Menu");
         frame.setSize(700, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // JPanel Object
         panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
@@ -60,6 +81,7 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener {
         JMenu about = new JMenu("About");
         menu.add(about);
 
+        // Initializing JMenuItems
         team = new JMenuItem("Team Info");
         team.addActionListener(this);
 
@@ -86,6 +108,7 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener {
         panel.add(scroll, BorderLayout.CENTER);
         panel.revalidate();
 
+        // Adding JMenuItems to JMenu
         file.add(load);
         file.add(add);
         file.add(save);
