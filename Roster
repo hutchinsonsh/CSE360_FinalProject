@@ -27,8 +27,9 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;  
 import org.jfree.data.xy.XYDataset;  
-import org.jfree.data.xy.XYSeries;  
-import org.jfree.data.xy.XYSeriesCollection; 
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;  
+//import org.jfree.data.xy.XYSeriesCollection; 
 //Riley: i ran into an error with XYSeriesCollection but it got fixed by just commenting it out
 //and then right clicking the error message in the code XYSeriesCollection dataset = new XYSeriesCollection();
 //and then adding the import back again. I have no idea why this happens though
@@ -165,7 +166,7 @@ public class Roster extends Observable {
         JOptionPane.showMessageDialog(null, "The file has been saved as 'saveRoster.cvs'");
     }
 
-  public void plot()
+  public void plot(ArrayList<String> dateList)
   {
     //XYDataset dataset = createDataset();
 		XYSeriesCollection dataset = new XYSeriesCollection();  //x is % attendance, so (minAttended*10)/75
@@ -179,7 +180,7 @@ public class Roster extends Observable {
     	{
     		int count1=0, count2=0, count3=0, count4=0, count5=0, count6=0, count7=0, count8=0, count9=0, count10=0;
     		//maybe issue with using "series1" for each series???
-    	    XYSeries series1 = new XYSeries(rosterList.get(0).get(j));  //XYSeries("date"), date depends on assumption
+    	    XYSeries series1 = new XYSeries(dateList.get(j-6));  //XYSeries("date"), date depends on assumption
     		for(int i = 0; i < rosterList.size(); i++) //start either i = 0 or i = 1, depends on assumption
     		{
 	    		attendance = ((Integer.parseInt(rosterList.get(i).get(j)))*10) /75;
