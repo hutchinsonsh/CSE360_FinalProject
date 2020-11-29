@@ -95,7 +95,12 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener {
         dial.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         dial.setSize(600, 200);
         dial.setLocationRelativeTo(frame);
-        label1 = new JLabel("       Here goes our team info");
+        label1 = new JLabel("Team Members: Omar Al-Sharif,\r\n" + 
+          		" Riley Barrett,\r\n" + 
+          		" Sarah Hills,\r\n" + 
+          		" Divine Lee,\r\n" + 
+          		" & Heman Sran\r\n" + 
+          		"");
         dial.add(label1);
 
         frame.getContentPane().add(panel);
