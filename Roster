@@ -1,3 +1,12 @@
+/**
+ * 
+ * @author Omar Alsharif, Riley Barrett, Sarah Hills
+ * This class deals with the functional requirements of the program
+ * it takes in csv files for a roster and a number of attendance sheets with 
+ * different dates. It then represents the roster with attendance on a table and
+ * plots the data using a scatter plot. It also has a save function to save the data
+ *
+ */
 package finalprojectcse360;
 
 
