@@ -135,7 +135,7 @@ public class Roster extends Observable {
 
     }
 	   
-    /* Author: Sarah Hills
+    /** Author: Sarah Hills
      * This method creates a new file, and writes everything from the table 
      * into a CSV file. The file is called 'saveRoster' and it is saved in the
      * project file
