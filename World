@@ -1,4 +1,4 @@
-/*
+/**
  * This class creates the main layout, reacts to all the button presses, and updates the layout as needed.
  */
 package finalprojectcse360;
@@ -136,7 +136,7 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener {
         FinalProjectCSE360 world = new FinalProjectCSE360();
     }
 
-        /* Author: Sarah Hills
+     /** Author: Sarah Hills
      * This method responds to all button presses/actions that occur
      *
      * @param e
@@ -208,7 +208,7 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener {
         }
     }
 
-    /* Author: Sarah Hills
+    /** Author: Sarah Hills
      * creates a pop-up box where user can choose the csv file they want
      * returns path to file
      *
@@ -223,7 +223,7 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener {
         return "canceled";
     }
 
-    /* Author: Sarah Hills
+    /** Author: Sarah Hills
      * Creates pop-up that has drop down menus for month and date
      * pop-up closes when button pressed
      *
@@ -262,7 +262,7 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener {
         frame.setLayout(new GridLayout(5, 1));
     }
 
-    /* Author: Sarah Hills
+    /** Author: Sarah Hills
      * this method works with an already existing table; creates a new column 
      *      everytime new attendance column is added to rosterList
      * Adds column to JTable with times for each student
@@ -280,7 +280,7 @@ public class FinalProjectCSE360 extends JFrame implements ActionListener {
         }
     }
 
-    /* Author: Sarah Hills
+    /** Author: Sarah Hills
      * This method creates the rows in JTable with the roster array
      * 
      * @return void
