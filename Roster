@@ -163,23 +163,23 @@ public class Roster extends Observable {
         writer.close();
         JOptionPane.showMessageDialog(null, "The file has been saved as 'saveRoster.cvs'");
     }
-
+  /** Author: Riley Barrett
+  * This function plots the attendance, where the x-axis is the percent of time spent connected, and
+  * the y-axis is the number of people who fall under each category of the x-axis
+  *
+  * @param dateList	An ArrayList that contains the dates for each day of attendance
+  */
   public void plot(ArrayList<String> dateList)
   {
-    //XYDataset dataset = createDataset();
-		XYSeriesCollection dataset = new XYSeriesCollection();  //x is % attendance, so (minAttended*10)/75
-		  							//y is number in that x
+	XYSeriesCollection dataset = new XYSeriesCollection();  //x is % attendance, so (minAttended*10)/75
+		  						//y is number in that x
 	     
-		//ASSUMPTIONS:
-		//			attendace starts at column 6 (j = 6)
-		// 			row 0 is headers (new XYSeries(rosterList.get(0).get(j)) and (i = 1),  i do believe this is wrong
-	    double attendance;	    
+	double attendance;	    
     	for(int j = 6; j < rosterList.get(0).size(); j++) //go through each column of attendance
     	{
     		int count1=0, count2=0, count3=0, count4=0, count5=0, count6=0, count7=0, count8=0, count9=0, count10=0;
-    		//maybe issue with using "series1" for each series???
-    	    XYSeries series1 = new XYSeries(dateList.get(j-6));  //XYSeries("date"), date depends on assumption
-    		for(int i = 0; i < rosterList.size(); i++) //start either i = 0 or i = 1, depends on assumption
+    	        XYSeries series1 = new XYSeries(dateList.get(j-6));  
+    		for(int i = 0; i < rosterList.size(); i++) 
     		{
 	    		attendance = ((Integer.parseInt(rosterList.get(i).get(j)))*10) /75;
 	    		if(attendance <= 0)
@@ -226,6 +226,7 @@ public class Roster extends Observable {
 	    		}
 	    		else {}
 	    	}
+		//add each set of points to series
     		series1.add(1.0,count1);
     		series1.add(2.0,count2);
     		series1.add(3.0,count3);
@@ -237,11 +238,9 @@ public class Roster extends Observable {
     		series1.add(9.0,count9);
     		series1.add(10.0,count10);
     		
-    		
+    		//add series to dataset
     		dataset.addSeries(series1);
-	    }
-	    
-    	//XYDataset fullSet = dataset;    //if createScatterPlot requires XYDataset instead of XYCollectionSeries
+	    }	    
     	
 	    // Create chart  
 	    JFreeChart chart = ChartFactory.createScatterPlot(  
@@ -253,9 +252,9 @@ public class Roster extends Observable {
 	    XYPlot plot = (XYPlot)chart.getPlot();  
 	    plot.setBackgroundPaint(new Color(255,228,196));  
 	      
-	      ChartFrame frame = new ChartFrame("First", chart);
-	        frame.pack();
-	        frame.setVisible(true);
+	    ChartFrame frame = new ChartFrame("Attendance", chart);
+	    frame.pack();
+	    frame.setVisible(true);
   }
 
 }
